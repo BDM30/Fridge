@@ -13,18 +13,18 @@ namespace Fridge.Controllers
 {
     public class ProductsController : Controller
     {
+      [Inject] private ICommonRepository<Product> dataP;
+      [Inject] private ICommonRepository<UserProduct> dataUP;
 
-     [Inject]
-      private ICommonRepository<Product> data;
-
-     public ProductsController(ICommonRepository<Product> d)
+     public ProductsController(ICommonRepository<Product> d, ICommonRepository<UserProduct> d2 )
       {
-        data = d;
+        dataP = d;
+        dataUP = d2;
       }
     
       public ActionResult ProductSearch([FromBody]ProductSearchInput input)
       {
-      Product product = (from x in data.Data
+        Product product = (from x in dataP.Data
                          where input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
                          select x).FirstOrDefault();
         if (product == null)
@@ -42,6 +42,32 @@ namespace Fridge.Controllers
         };
 
         return Json(res, JsonRequestBehavior.AllowGet);
+      }
+
+      public ActionResult NewProductAdd([FromBody] NewProductAddInput input)
+      {
+        dataP.SaveData(new Product()
+        {
+          AmountDefault = input.AmountDefault,
+          Barcode = input.Barcode,
+          CategoryID = input.CategoryID,
+          Name = input.Name,
+          UnitMeasureID = input.UnitMeasureID,
+        });
+
+        int idProduct = dataP.Data.Last().ProductID;
+
+        dataUP.SaveData(new UserProduct()
+        {
+          UserID = input.UserID,
+          CategoryID = input.CategoryID,
+          Name = input.Name,
+          Amount = input.Amount,
+          UnitMeasureID = input.UnitMeasureID,
+          ExpirationDate = input.ExpirationDate,
+          ProductID = idProduct
+        });
+        return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID }, JsonRequestBehavior.AllowGet);
       }
 
 

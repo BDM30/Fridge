@@ -65,7 +65,8 @@ namespace Fridge.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ICommonRepository<Product>>().To<ProductRepository>();
+          kernel.Bind<ICommonRepository<Product>>().To<ProductRepository>();
+          kernel.Bind<ICommonRepository<UserProduct>>().To<UserProductRepository>();
         }        
     }
 }
