@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Fridge.Models.Abstract;
 using Fridge.Models.Concrete.Entities;
 using Fridge.Models.Concrete.Product;
@@ -20,6 +22,14 @@ namespace Fridge.Controllers
       {
         dataP = d;
         dataUP = d2;
+      }
+
+      public ActionResult GetUserProducts(int id)
+      {
+        IEnumerable<UserProduct> products = ( from x in dataUP.Data
+                                              where x.UserID == id
+                                              select x);
+        return Json(products, JsonRequestBehavior.AllowGet);
       }
     
       public ActionResult ProductSearch([FromBody]ProductSearchInput input)
