@@ -44,6 +44,7 @@ namespace Fridge.Controllers
         return Json(res, JsonRequestBehavior.AllowGet);
       }
 
+      
       public ActionResult NewProductAdd([FromBody] NewProductAddInput input)
       {
         dataP.SaveData(new Product()
@@ -65,7 +66,8 @@ namespace Fridge.Controllers
           Amount = input.Amount,
           UnitMeasureID = input.UnitMeasureID,
           ExpirationDate = input.ExpirationDate,
-          ProductID = idProduct
+          ProductID = idProduct,
+          AmountDefault = input.AmountDefault
         });
         return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID }, JsonRequestBehavior.AllowGet);
       }

@@ -36,6 +36,7 @@ namespace Fridge.Models.Concrete.Repositories
           dbEntry.UserID = data.UserID;
           dbEntry.FridgeID = data.FridgeID;
           dbEntry.ProductID = data.ProductID;
+          dbEntry.AmountDefault = data.AmountDefault;
         }
       }
       context.SaveChanges();

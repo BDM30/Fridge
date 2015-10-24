@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201510241521365_DomainExpanded.Designer.cs">
       <DependentUpon>201510241521365_DomainExpanded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510241953125_UPAmountDefaultAdded.cs" />
+    <Compile Include="Migrations\201510241953125_UPAmountDefaultAdded.Designer.cs">
+      <DependentUpon>201510241953125_UPAmountDefaultAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abstract\ICommonRepository.cs" />
     <Compile Include="Models\Concrete\Entities\Category.cs" />
@@ -302,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510241521365_DomainExpanded.resx">
       <DependentUpon>201510241521365_DomainExpanded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510241953125_UPAmountDefaultAdded.resx">
+      <DependentUpon>201510241953125_UPAmountDefaultAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

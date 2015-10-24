@@ -16,5 +16,6 @@ namespace Fridge.Models.Concrete.Entities
     public int UnitMeasureID { get; set; }
     public int Amount { get; set; }
     public string ExpirationDate { get; set; }
+    public int AmountDefault { get; set; }
   }
 }
