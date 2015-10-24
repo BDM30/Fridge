@@ -187,9 +187,24 @@
     <Compile Include="Migrations\201510241319307_DBInit.Designer.cs">
       <DependentUpon>201510241319307_DBInit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510241521365_DomainExpanded.cs" />
+    <Compile Include="Migrations\201510241521365_DomainExpanded.Designer.cs">
+      <DependentUpon>201510241521365_DomainExpanded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abstract\ICommonRepository.cs" />
+    <Compile Include="Models\Concrete\Entities\Category.cs" />
+    <Compile Include="Models\Concrete\Entities\Fridge.cs" />
+    <Compile Include="Models\Concrete\Entities\ImportanceLevel.cs" />
+    <Compile Include="Models\Concrete\Entities\Ingredient.cs" />
+    <Compile Include="Models\Concrete\Entities\Product.cs" />
+    <Compile Include="Models\Concrete\Entities\Recipe.cs" />
+    <Compile Include="Models\Concrete\Entities\RecipeTag.cs" />
+    <Compile Include="Models\Concrete\Entities\ReplaceOption.cs" />
+    <Compile Include="Models\Concrete\Entities\Tag.cs" />
+    <Compile Include="Models\Concrete\Entities\UnitMeasure.cs" />
     <Compile Include="Models\Concrete\Entities\User.cs" />
+    <Compile Include="Models\Concrete\Entities\UserProduct.cs" />
     <Compile Include="Models\Concrete\FridgeContext.cs" />
     <Compile Include="Models\Concrete\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,6 +275,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510241319307_DBInit.resx">
       <DependentUpon>201510241319307_DBInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510241521365_DomainExpanded.resx">
+      <DependentUpon>201510241521365_DomainExpanded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
