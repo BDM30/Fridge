@@ -1,50 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web.Mvc;
 using Fridge.Models.Abstract;
 using Fridge.Models.Concrete.Entities;
 using Fridge.Models.Concrete.Product;
+using Ninject;
 
 namespace Fridge.Controllers
 {
-    public class ProductsController : ApiController
+    public class ProductsController : Controller
     {
+
+     [Inject]
       private ICommonRepository<Product> data;
 
-      public ProductsController(ICommonRepository<Product> d)
+     public ProductsController(ICommonRepository<Product> d)
       {
         data = d;
       }
-
-    [ResponseType(typeof(ProductSearchOutput))]
-    public IHttpActionResult ProductSearch(string bar)
-    {
-
+    
+      public ActionResult ProductSearch([FromBody]ProductSearchInput input)
+      {
       Product product = (from x in data.Data
-                         where bar == x.Barcode
+                         where input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
                          select x).FirstOrDefault();
+        if (product == null)
+        {
+          return Json(null, JsonRequestBehavior.AllowGet);
+        }
 
-      if (product == null)
-      {
-        return NotFound();
+        ProductSearchOutput res = new ProductSearchOutput()
+        {
+          AmountDefault = product.AmountDefault,
+          CategoryID = product.CategoryID,
+          Name = product.Name,
+          ProductID = product.ProductID,
+          UnitMeasureID = product.UnitMeasureID
+        };
+
+        return Json(res, JsonRequestBehavior.AllowGet);
       }
-
-      ProductSearchOutput res = new ProductSearchOutput()
-      {
-        AmountDefault = product.AmountDefault,
-        CategoryID = product.CategoryID,
-        Name = product.Name,
-        ProductID = product.ProductID,
-        UnitMeasureID = product.UnitMeasureID
-      };
-
-      return Ok(res);
-       
-    }
 
 
   }
