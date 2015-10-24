@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Fridge.Models.Abstract;
 using Fridge.Models.Concrete.Entities;
 using Fridge.Models.Concrete.Product;
@@ -17,11 +13,13 @@ namespace Fridge.Controllers
     {
       [Inject] private ICommonRepository<Product> dataP;
       [Inject] private ICommonRepository<UserProduct> dataUP;
+      [Inject] private ICommonRepository<User> dataU;
 
-     public ProductsController(ICommonRepository<Product> d, ICommonRepository<UserProduct> d2 )
+    public ProductsController(ICommonRepository<Product> d, ICommonRepository<UserProduct> d2, ICommonRepository<User> d3  )
       {
         dataP = d;
         dataUP = d2;
+        dataU = d3;
       }
 
       public ActionResult GetUserProducts(int id)
@@ -35,8 +33,8 @@ namespace Fridge.Controllers
       public ActionResult ProductSearch([FromBody]ProductSearchInput input)
       {
         Product product = (from x in dataP.Data
-                         where input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
-                         select x).FirstOrDefault();
+                           where input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
+                           select x).FirstOrDefault();
         if (product == null)
         {
           return Json(null, JsonRequestBehavior.AllowGet);
@@ -54,7 +52,7 @@ namespace Fridge.Controllers
         return Json(res, JsonRequestBehavior.AllowGet);
       }
 
-      
+      // [System.Web.Http.HttpPost]
       public ActionResult NewProductAdd([FromBody] NewProductAddInput input)
       {
         dataP.SaveData(new Product()
@@ -80,6 +78,33 @@ namespace Fridge.Controllers
           AmountDefault = input.AmountDefault
         });
         return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID }, JsonRequestBehavior.AllowGet);
+      }
+
+      public ActionResult ProductAdd([FromBody] ProductAddInput input)
+      {
+        Product product = ( from x in dataP.Data
+                            where input.ProductID == x.ProductID
+                            select x).FirstOrDefault();
+
+        User user = ( from x in dataU.Data
+                      where input.UserID == x.UserID
+                      select x).FirstOrDefault();
+
+        UserProduct userProduct = new UserProduct
+        {
+          FridgeID = user.FridgeID,
+          UserID = user.UserID,
+          ProductID = product.ProductID,
+          CategoryID = product.CategoryID,
+          Name = product.Name,
+          UnitMeasureID = product.UnitMeasureID,
+          Amount = input.Amount,
+          ExpirationDate = input.ExspirationDate,
+          AmountDefault = product.AmountDefault
+        };
+
+        dataUP.SaveData(userProduct);
+        return Json (new ProductAddOutput {UserProductID = dataUP.Data.Last().UserProductID}, JsonRequestBehavior.AllowGet) ;
       }
 
 
