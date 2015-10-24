@@ -53,7 +53,6 @@ namespace Fridge.Controllers
     [ResponseType(typeof(User))]
     public IHttpActionResult PostUser(User user)
     {
-
       data.SaveData(user);
       return CreatedAtRoute("DefaultApi", new { id = user.UserID }, user);
     }

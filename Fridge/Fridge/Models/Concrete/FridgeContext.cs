@@ -6,6 +6,11 @@ namespace Fridge.Models.Concrete
 
   public class FridgeContext : DbContext
   {
+    public FridgeContext(): base("FridgeDB")
+    {
+
+    }
+
     public DbSet<User> Users { get; set; }
   }
 }
