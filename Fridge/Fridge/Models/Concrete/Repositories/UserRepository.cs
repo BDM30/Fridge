@@ -6,7 +6,7 @@ using Fridge.Models.Concrete.Entities;
 Класс реализует паттерн Репозиторий те упрощает и инкапсулирует работу с данными из класса FoodContext
 */
 
-namespace Fridge.Models.Concrete
+namespace Fridge.Models.Concrete.Repositories
 {
   public class UserRepository : ICommonRepository<User>
   {
