@@ -20,7 +20,7 @@ namespace Fridge.Models.Concrete
 
     public DbSet<Entities.Product> Products { get; set; }
 
-    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Entities.Recipe> Recipes { get; set; }
 
     public DbSet<RecipeTag> RecipeTags { get; set; }
 

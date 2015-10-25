@@ -236,7 +236,10 @@
     <Compile Include="Models\Concrete\Product\ProductAddOutput.cs" />
     <Compile Include="Models\Concrete\Product\ProductSearchInput.cs" />
     <Compile Include="Models\Concrete\Product\ProductSearchOutput.cs" />
+    <Compile Include="Models\Concrete\Recipe\GetRecipesSimpleOutput.cs" />
     <Compile Include="Models\Concrete\Repositories\FridgeRepository.cs" />
+    <Compile Include="Models\Concrete\Repositories\IngredientRepository.cs" />
+    <Compile Include="Models\Concrete\Repositories\RecipeRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\ProductRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\UserProductRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\UserRepository.cs" />
