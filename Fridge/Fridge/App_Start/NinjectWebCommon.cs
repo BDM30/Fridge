@@ -70,6 +70,8 @@ namespace Fridge.App_Start
           kernel.Bind<ICommonRepository<User>>().To<UserRepository>();
           kernel.Bind<ICommonRepository<Recipe>>().To<RecipeRepository>();
           kernel.Bind<ICommonRepository<Ingredient>>().To<IngredientRepository>();
-    }        
+          kernel.Bind<ICommonRepository<Category>>().To<CategoryRepository>();
+          kernel.Bind<ICommonRepository<UnitMeasure>>().To<UnitMeasureRepository>();
+        }        
     }
 }

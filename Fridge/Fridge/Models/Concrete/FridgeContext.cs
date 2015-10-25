@@ -12,7 +12,7 @@ namespace Fridge.Models.Concrete
     }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Category> Caterories { get; set; }
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Entities.Fridge> Fridges { get; set; }
     public DbSet<ImportanceLevel> ImportanceLevels { get; set; }
 

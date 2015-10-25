@@ -9,5 +9,6 @@ namespace Fridge.Models.Concrete.Product
   public class NewProductAddOutput
   {
     public int UserProductID { get; set; }
+    public int ProductID { get; set; }
   }
 }

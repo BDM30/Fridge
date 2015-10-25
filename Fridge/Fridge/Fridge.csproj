@@ -160,6 +160,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Recipes\" />
     <Folder Include="Views\Success\" />
+    <Folder Include="Views\Sync\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,6 +232,8 @@
     <Compile Include="Models\Concrete\Entities\User.cs" />
     <Compile Include="Models\Concrete\Entities\UserProduct.cs" />
     <Compile Include="Models\Concrete\FridgeContext.cs" />
+    <Compile Include="Models\Concrete\Product\AmountChangeInput.cs" />
+    <Compile Include="Models\Concrete\Product\AmountChangeOutput.cs" />
     <Compile Include="Models\Concrete\Product\NewProductAddInput.cs" />
     <Compile Include="Models\Concrete\Product\NewProductAddOutput.cs" />
     <Compile Include="Models\Concrete\Product\ProductAddInput.cs" />
@@ -237,12 +241,16 @@
     <Compile Include="Models\Concrete\Product\ProductSearchInput.cs" />
     <Compile Include="Models\Concrete\Product\ProductSearchOutput.cs" />
     <Compile Include="Models\Concrete\Recipe\GetRecipesSimpleOutput.cs" />
+    <Compile Include="Models\Concrete\Recipe\IngredientExpanded.cs" />
+    <Compile Include="Models\Concrete\Repositories\UnitMeasureRepository.cs" />
+    <Compile Include="Models\Concrete\Repositories\CategoryRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\FridgeRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\IngredientRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\RecipeRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\ProductRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\UserProductRepository.cs" />
     <Compile Include="Models\Concrete\Repositories\UserRepository.cs" />
+    <Compile Include="Models\Concrete\Sync\SyncUnitsMeasureOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\UnityResolver.cs" />
   </ItemGroup>
@@ -250,6 +258,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Pictures\pic1.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -333,7 +342,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5402</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

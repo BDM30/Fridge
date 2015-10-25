@@ -77,8 +77,20 @@ namespace Fridge.Controllers
           ProductID = idProduct,
           AmountDefault = input.AmountDefault
         });
-        return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID }, JsonRequestBehavior.AllowGet);
+
+        return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID, ProductID = idProduct }, JsonRequestBehavior.AllowGet);
       }
+
+      public ActionResult AmountChange([FromBody] AmountChangeInput input)
+      {
+        UserProduct userProduct = (from x in dataUP.Data
+                                 where input.UserProductID == x.UserProductID
+                                 select x).FirstOrDefault();
+
+        userProduct.Amount = input.Amount;
+        dataUP.SaveData(userProduct);
+      return Json(new AmountChangeOutput() { IsCorrect = 0 }, JsonRequestBehavior.AllowGet);
+    }
 
       public ActionResult ProductAdd([FromBody] ProductAddInput input)
       {

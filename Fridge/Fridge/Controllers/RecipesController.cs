@@ -39,15 +39,10 @@ namespace Fridge.Controllers
         where fridgeId == x.FridgeID
         select x);
 
-      //
-      List<UserProduct> up1 = new List<UserProduct>();
-      foreach (var x in userProducts)
-      {
-        up1
-      }
-
-
       List <Recipe> goodRecipes = new List<Recipe>();
+
+      // k v
+      Dictionary<int, int> ingredientUserProduct = new Dictionary<int, int>();
 
       // идем по рецептам
       foreach (var recipe in dataRecipes.Data)
@@ -64,12 +59,17 @@ namespace Fridge.Controllers
         {
           UserProduct userProduct = (
             from x in dataUserProducts.Data
-            where x.CategoryID == ingredient.CategoryID && x.Amount <= ingredient.Amount
+            where x.CategoryID == ingredient.CategoryID && x.Amount >= ingredient.Amount
             select x).FirstOrDefault();
           if (userProduct == null)
           {
             resipe_is_good = false;
             break;
+          }
+          else
+          {
+            if (! ingredientUserProduct.ContainsKey(ingredient.IngredientID))
+              ingredientUserProduct.Add(ingredient.IngredientID, userProduct.UserProductID);
           }    
         }
         if (resipe_is_good)
@@ -79,14 +79,31 @@ namespace Fridge.Controllers
       List<GetRecipesSimpleOutput> result = new List<GetRecipesSimpleOutput>();
       foreach (var recipe in goodRecipes)
       {
+        IEnumerable<Ingredient> ingredients = (
+          from x in dataIngredients.Data
+          where x.RecipeID == recipe.RecipeID
+          select x);
+        List<IngredientExpanded> final_recipes = new List<IngredientExpanded>();
+        foreach (var x in ingredients)
+        {
+          final_recipes.Add(new IngredientExpanded()
+          {
+            Amount = x.Amount,
+            IngredientID = x.IngredientID,
+            CategoryID = x.CategoryID,
+            ImportanceLevelID =  x.ImportanceLevelID,
+            RecipeID = x.RecipeID,
+            UserProductID = ingredientUserProduct[x.IngredientID]
+          });
+        }
+
+
         result.Add(new GetRecipesSimpleOutput()
         {
           Description =  recipe.ProcessDescription,
           Name = recipe.Name,
           RecipeID = recipe.RecipeID,
-          Ingredients = (from x in dataIngredients.Data
-                         where x.RecipeID == recipe.RecipeID
-                         select x)
+          Ingredients = final_recipes
         });
       }
       return Json((IEnumerable<GetRecipesSimpleOutput>) result, JsonRequestBehavior.AllowGet);
