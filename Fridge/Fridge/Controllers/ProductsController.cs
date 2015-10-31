@@ -14,12 +14,16 @@ namespace Fridge.Controllers
       [Inject] private ICommonRepository<Product> dataP;
       [Inject] private ICommonRepository<UserProduct> dataUP;
       [Inject] private ICommonRepository<User> dataU;
+      [Inject] private ICommonRepository<Category> dataC;
 
-    public ProductsController(ICommonRepository<Product> d, ICommonRepository<UserProduct> d2, ICommonRepository<User> d3  )
+      public ProductsController(ICommonRepository<Product> d, ICommonRepository<UserProduct> d2,
+        ICommonRepository<User> d3,
+        ICommonRepository<Category> d4)
       {
         dataP = d;
         dataUP = d2;
         dataU = d3;
+        dataC = d4;
       }
 
       public ActionResult GetUserProducts(int id)
@@ -79,6 +83,49 @@ namespace Fridge.Controllers
         });
 
         return Json(new NewProductAddOutput() { UserProductID = dataUP.Data.Last().UserProductID, ProductID = idProduct }, JsonRequestBehavior.AllowGet);
+      }
+
+      public ActionResult NewProductCategoryAdd([FromBody] NewProductCategoryAddInput input)
+      {
+        var category = dataC.Data.FirstOrDefault(x => x.Name.ToUpper().Equals(input.CategoryName.ToUpper()));
+
+        if (category == null)
+        {
+          dataC.SaveData(new Category()
+          {Name = input.CategoryName});
+          category = dataC.Data.Last();
+        }
+
+        dataP.SaveData(new Product()
+        {
+          UnitMeasureID = input.UnitMeasureID,
+          AmountDefault = input.AmountDefault,
+          Barcode = input.Barcode,
+          CategoryID = category.CategoryID,
+          Name = input.Name
+        });
+
+        int idProduct = dataP.Data.Last().ProductID;
+
+        dataUP.SaveData(new UserProduct()
+        {
+          UserID = input.UserID,
+          CategoryID = category.CategoryID,
+          Name = input.Name,
+          Amount = input.Amount,
+          UnitMeasureID = input.UnitMeasureID,
+          ExpirationDate = input.ExpirationDate,
+          ProductID = idProduct,
+          AmountDefault = input.AmountDefault
+        });
+
+        return
+          Json(new NewProductCategoryAddOutput()
+          {
+            CategoryID = category.CategoryID,
+            ProductID = idProduct,
+            UserProductID = dataUP.Data.Last().UserProductID
+          }, JsonRequestBehavior.AllowGet);
       }
 
       public ActionResult AmountChange([FromBody] AmountChangeInput input)

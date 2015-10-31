@@ -236,6 +236,8 @@
     <Compile Include="Models\Concrete\Product\AmountChangeOutput.cs" />
     <Compile Include="Models\Concrete\Product\NewProductAddInput.cs" />
     <Compile Include="Models\Concrete\Product\NewProductAddOutput.cs" />
+    <Compile Include="Models\Concrete\Product\NewProductCategoryAddInput.cs" />
+    <Compile Include="Models\Concrete\Product\NewProductCategoryAddOutput.cs" />
     <Compile Include="Models\Concrete\Product\ProductAddInput.cs" />
     <Compile Include="Models\Concrete\Product\ProductAddOutput.cs" />
     <Compile Include="Models\Concrete\Product\ProductSearchInput.cs" />
