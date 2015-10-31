@@ -103,7 +103,8 @@ namespace Fridge.Controllers
           Description =  recipe.ProcessDescription,
           Name = recipe.Name,
           RecipeID = recipe.RecipeID,
-          Ingredients = final_recipes
+          Ingredients = final_recipes,
+          Image = recipe.Image
         });
       }
       return Json((IEnumerable<GetRecipesSimpleOutput>) result, JsonRequestBehavior.AllowGet);

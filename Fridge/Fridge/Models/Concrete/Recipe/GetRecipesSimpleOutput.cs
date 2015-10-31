@@ -13,5 +13,7 @@ namespace Fridge.Models.Concrete.Recipe
     //public IEnumerable<Ingredient> Ingredients { get; set; }
 
     public int ProductID { get; set; }
+
+    public string Image { get; set; }
   }
 }

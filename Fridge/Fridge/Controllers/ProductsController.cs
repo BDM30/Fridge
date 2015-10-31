@@ -33,7 +33,7 @@ namespace Fridge.Controllers
       public ActionResult ProductSearch([FromBody]ProductSearchInput input)
       {
         Product product = (from x in dataP.Data
-                           where input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
+                           where x.Barcode != null && input.Barcode.ToUpper().Equals(x.Barcode.ToUpper())
                            select x).FirstOrDefault();
         if (product == null)
         {

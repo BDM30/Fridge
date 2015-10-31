@@ -10,5 +10,6 @@ namespace Fridge.Models.Concrete.Entities
     public int RecipeID { get; set; }
     public string Name { get; set; }
     public string ProcessDescription { get; set; }
+    public string Image { get; set; }
   }
 }
